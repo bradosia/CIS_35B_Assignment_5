@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1160</x>
+      <y>1090</y>
+      <w>250</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>model.Automobile.OptionSet.Option
+--
+static final long serialVersionUID
+String optionName
+double price
+--
+Option()
+Option(String name, double price_)
+String getName()
+double getPrice()
+void setName(String name)
+void setPrice(double price_)
+void print()
+String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1150</x>
+      <y>750</y>
+      <w>270</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>model.Automobile.OptionSet
+--
+static final long serialVersionUID
+ArrayList&lt;Option&gt; optionList
+String optionSetName
+--
+OptionSet()
+OptionSet(String name, int size)
+void init()
+String getName()
+Option getOption(int optionIndex)
+int length()
+Option findOption(String optionName)
+int findOptionIndex(String optionName)
+void setName(String name)
+int addOption(String optionName, double optionPrice)
+void print()
+String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>510</y>
+      <w>670</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>util.FileIO
+--
+
+--
+void read(String fileName, Automobile autoObj)
+boolean optionSetOptionsProcess(Automobile autoObj, int optionSetObjectIndex, String optionSetOptions)
+void serialize(String fileName, Automobile autoObj)
+Automobile deserialize(String fileName)
+void print()
+String toString()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>750</y>
+      <w>610</w>
+      <h>710</h>
+    </coordinates>
+    <panel_attributes>model.Automobile
+--
+static final long serialVersionUID
+String makeName
+String modelName
+String year
+double basePrice
+ArrayList&lt;OptionSet&gt; optionSetList
+ArrayList&lt;Integer&gt; optionSetOptionChoice
+ArrayList&lt;String&gt; optionSetNameReserved
+--
+Automobile()
+Automobile(int size)
+void init()
+String getMake()
+String getModel()
+String getYear() 
+double getPrice()
+OptionSet getOptionSet(int OptionSetIndex)
+int length()
+String getOptionSetChoiceName(String optionSetName)
+Double getOptionSetChoicePrice(String optionSetName)
+OptionSet.Option getOptionSetChoiceByIndex(int optionSetIndex)
+String getOptionSetOptionName(String optionSetName, String optionName)
+Double getOptionSetOptionPrice(String optionSetName, String optionName)
+boolean isOptionSetReserved(OptionSet optionSetObject)
+boolean isOptionSetNameReserved(String optionSetName)
+OptionSet findOptionSet(String optionSetName) 
+OptionSet.Option findOptionSetOption(int OptionSetIndex, String optionName)
+int findOptionSetIndex(String optionSetName)
+int findOptionSetOptionIndex(int OptionSetIndex, String optionName)
+int addOptionSet(String OptionSetName)
+int addOptionSetOption(int optionSetIndex, String optionName, double optionPrice)
+void setMake(String name)
+void setModel(String name)
+void setYear(String name)
+void setPrice(double price_)
+boolean setOptionSetName(String optionSetName, String nameNew)
+boolean setOptionSetOptionNameReserved(String optionSetName, String optionName)
+boolean setOptionSetOptionName(String optionSetName, String optionName, String nameNew)
+boolean setOptionSetOptionPrice(String optionSetName, String optionName, double priceNew)
+boolean setOptionSetChoiceByIndex(int optionSetIndex, int optionIndex)
+boolean setOptionSetChoice(String optionSetName, String optionName)
+void print()
+String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1090</x>
+      <y>840</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1280</x>
+      <y>1030</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>210</y>
+      <w>710</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>adapter.ProxyAutomobile
+--
+model.AutomobileTable automobileTable;
+util.FileIO autoutil;
+--
+ProxyAutomobile()
+boolean updateOptionSetName(String automobileKey, String optionSetName, String nameNew)
+boolean updateOptionPrice(String automobileKey, String optionSetName, String optionName, double priceNew)
+String buildAuto(String filename)
+boolean printAuto(String automobileKey)
+boolean serialize(String automobileKey, String fileName)
+String deserialize(String fileName)
+boolean setOptionChoice(String automobileKey, String optionSetName, String optionName)
+public String getOptionChoice(String automobileKey, String optionSetName)
+public Double getOptionChoicePrice(String automobileKey, String optionSetName)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>440</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>670</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>810</x>
+      <y>440</y>
+      <w>30</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>20</y>
+      <w>250</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>UML Diagram
+Assignment 3
+KBB Application
+By: Branden Lee</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>0</y>
+      <w>330</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>KBB::Driver
+--
+
+--
+main(String[] args)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>880</y>
+      <w>330</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>exception.AutoException
+--
+Map&lt;Integer, String&gt; errorMessageTable;
+int errorNumber;
+String errorMessage;
+model.Automobile automobileObject;
+Log log;
+--
+AutoException(int errorNumber_)
+String fixString(int errorNumber)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1020</x>
+      <y>510</y>
+      <w>330</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>model.AutomobileTable
+--
+Map&lt;String, Automobile&gt; automobileTable
+--
+AutomobileTable()
+AutomobileTable(int capacitySize)
+Automobile getByKey(String automobileKey)
+String getKey(Automobile automobileObject)
+String insertOverwrite(Automobile automobileObject)
+String insertWrapper(Automobile automobileObject)
+boolean insert(String automobileKey, Automobile automobileObject)
+void print()
+String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>440</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>70</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>110</y>
+      <w>330</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>adapter.buildAuto
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>170</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>670</y>
+      <w>30</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>960</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>1070</y>
+      <w>350</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>exception.FixAutomobileTable
+--
+
+--
+String code500(model.Automobile automobileObject)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>1020</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>1200</y>
+      <w>350</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>exception.Log
+--
+PrintWriter writer
+--
+void error(String str)
+void warning(String str)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>380</x>
+      <y>1020</y>
+      <w>30</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
