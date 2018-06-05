@@ -1,10 +1,12 @@
 package adapter;
 
 import model.*;
+import scale.EditOptions;
 import exception.*;
 
 public abstract class ProxyAutomobile {
 	private static model.AutomobileTable automobileTable;
+	private static int threadNumber; // keep track of thread numbers
 	private util.FileIO autoutil;
 
 	protected ProxyAutomobile() {
@@ -14,6 +16,7 @@ public abstract class ProxyAutomobile {
 	public void init() {
 		// initialize the static automobile table
 		automobileTable = new AutomobileTable(64);
+		threadNumber = 0;
 	}
 
 	public boolean updateOptionSetName(String automobileKey, String optionSetName, String nameNew) {
@@ -31,6 +34,17 @@ public abstract class ProxyAutomobile {
 		model.Automobile automobileObject = automobileTable.getByKey(automobileKey);
 		if (automobileObject != null) {
 			automobileObject.setOptionSetOptionPrice(optionSetName, optionName, priceNew);
+			returnValue = true;
+		}
+		return returnValue;
+	}
+
+	public boolean updateOptionName(String automobileKey, String optionSetName, String optionName,
+		String optionNameNew) {
+		boolean returnValue = false;
+		model.Automobile automobileObject = automobileTable.getByKey(automobileKey);
+		if (automobileObject != null) {
+			automobileObject.setOptionSetOptionName(optionSetName, optionName, optionNameNew);
 			returnValue = true;
 		}
 		return returnValue;
@@ -121,34 +135,14 @@ public abstract class ProxyAutomobile {
 		}
 		return returnValue;
 	}
-	
-	public void Operation(int opnumber, String[] input) {
-		// call some method in EditOption class
+
+	/* scale.Scaleable Implementation */
+	public void operation(int operationNumber, String[] inputArguments) {
+		/*
+		 * scale.EditOptions mimics Hello.java
+		 * It contains a switching statement to delegate the operation number
+		 */
+		EditOptions editObtionsObject = new scale.EditOptions(this, operationNumber, threadNumber++, inputArguments);
+		editObtionsObject.start();
 	}
-	
-	/*
-	 * test
-	 */
-	//sync
-	UpdateOption(operationno, threadno, auto, optionset, fromcolor, tocolor)
-	// not sync
-	UpdateOption(operationno, threadno, auto, optionset, fromcolor, tocolor)
-	// Scalable scaleable = new BuildAuto();
-	String input[] = {1,1,"FordWagonZTW","Color","Blue","HawaiianGold"}
-	scaleable.operation(1, input);
-	// another thread
-	String input[] = {1,2,"FordWagonZTW","Color","Blue","CaliforniaGold"}
-	scaleable.operation(1, input);
-	
-	//Lot of print statements should be added in relevant method of auto, optionset, nd option and its okay to do so for lab4
-	
-	// which method should be synchronized in lab4?
-	1. model package? - significant performance repercusion?
-		2. proxyauto - design wise not localized
-		3. editoptions - opmethods that call other methods in the model package
-		
-		// how to use Hello.java in EditOption.java
-		
-		// Coffee is your auto
-	
 }

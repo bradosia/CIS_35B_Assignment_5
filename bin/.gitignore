@@ -1,8 +1,8 @@
 /adapter/
+/client/
 /driver/
 /exception/
 /model/
 /scale/
-/util/
 /server/
-/client/
+/util/
