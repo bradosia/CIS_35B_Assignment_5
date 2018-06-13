@@ -65,7 +65,25 @@ public class CarModelOptionsIO {
 	}
 
 	public void displayMenu3() {
-		sendOutput("get automobile list");
+		String inputString = "null";
+		try {
+			inputString = stdIn.readLine();
+		} catch (IOException e) {
+			System.out.println("Error: Could not read");
+		}
+		sendOutput("begin customization");
+		sendOutput(inputString);
+	}
+	
+	public void displayMenu4() {
+		System.out.println("Select an option #1");
+		String inputString = "null";
+		try {
+			inputString = stdIn.readLine();
+		} catch (IOException e) {
+			System.out.println("Error: Could not read");
+		}
+		sendOutput("pick up car");
 	}
 
 	public boolean getMenuOption(String inputString) {
@@ -78,7 +96,7 @@ public class CarModelOptionsIO {
 			displayMenu2();
 			break;
 		case "3":
-			displayMenu3();
+			sendOutput("get automobile list");
 			break;
 		default:
 			returnValue = false;
