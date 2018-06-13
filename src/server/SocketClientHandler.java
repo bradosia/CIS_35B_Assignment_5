@@ -55,13 +55,13 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 	public void handleSession() {
 		String strInput = "";
 		if (DEBUG)
-			System.out.println("Handling session with " + socketClient.getRemoteSocketAddress());
+			System.out.println(socketClient.getRemoteSocketAddress() + ": Started a session.");
 		try {
 			while ((strInput = reader.readLine()) != null)
 				handleInput(strInput);
 		} catch (IOException e) {
 			if (DEBUG)
-				System.out.println("Handling session with " + strHost + ":" + iPort);
+				System.out.println(socketClient.getRemoteSocketAddress() + ": Closed the session.");
 		}
 	}
 

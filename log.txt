@@ -55,3 +55,16 @@
 [06/13/18 12:45:38] WARNING #104: option set name is reserved
 [06/13/18 12:45:38] WARNING #104: option set name is reserved
 [06/13/18 12:45:38] WARNING #104: option set name is reserved
+[06/13/18 12:53:37] WARNING #104: option set name is reserved
+[06/13/18 12:53:37] WARNING #104: option set name is reserved
+[06/13/18 12:53:37] WARNING #104: option set name is reserved
+[06/13/18 12:57:48] WARNING #102: Missing name attribute for option in the automobile text file
+[06/13/18 12:57:48] WARNING #102: Missing name attribute for option in the automobile text file
+[06/13/18 12:57:48] WARNING #102: Missing name attribute for option in the automobile text file
+[06/13/18 13:01:05] ERROR #900: Could not find the automobile properties file
+[06/13/18 13:01:05] ERROR #300: IO problem serializing automobile
+[06/13/18 13:01:09] ERROR #200: Could not find the automobile text file
+[06/13/18 13:01:09] ERROR #300: IO problem serializing automobile
+[06/13/18 13:04:12] WARNING #102: Missing name attribute for option in the automobile text file
+[06/13/18 13:04:12] WARNING #102: Missing name attribute for option in the automobile text file
+[06/13/18 13:04:12] WARNING #102: Missing name attribute for option in the automobile text file

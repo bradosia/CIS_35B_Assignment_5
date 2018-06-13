@@ -55,8 +55,12 @@ public class StreamIO {
 			String optionSetOptions = automobileProperties.getProperty(optionSetName);
 			// add an option set and process the options string
 			optionSetObjectIndex = automobileObject.addOptionSet(optionSetName);
-			optionSetOptionsProcess(automobileObject, optionSetObjectIndex, optionSetOptions);
-			System.out.println("Key : " + optionSetName + ", Value : " + optionSetOptions);
+			if (optionSetObjectIndex == -1) {
+				// reserved
+				automobileObject.setOptionSetOptionNameReserved(optionSetName, optionSetOptions);
+			} else {
+				optionSetOptionsProcess(automobileObject, optionSetObjectIndex, optionSetOptions);
+			}
 		}
 		if (automobileObject == null) {
 			throw new exception.AutoException(901);

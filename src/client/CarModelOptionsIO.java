@@ -51,9 +51,15 @@ public class CarModelOptionsIO {
 			fileIOUtil.serializeToStream(socketClientOutputStream, fileIOUtil.fileToAutomobile(inputString));
 		} catch (AutoException e) {
 			System.out.println(e.getMessage());
-			sendOutput("cancel properties");
+			/* we send this command because the server was expecting an object stream
+			 * This is obviously not an object stream and will allow the server to throw an exception
+			 */
+			sendOutput("cancel properties"); 
 		} catch (IOException e) {
 			System.out.println("Error: Could not serialize");
+			/* we send this command because the server was expecting an object stream
+			 * This is obviously not an object stream and will allow the server to throw an exception
+			 */
 			sendOutput("cancel properties");
 		}
 	}
