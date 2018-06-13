@@ -25,18 +25,31 @@ public class AutomobileTable {
 
 	/** get the hash table key for an automobile object. \n
 	 * key is a combination of Make, Model, and Year.
-	 * @return the key string **/
-	public String getKey(Automobile automobileObject) {
+	 * @return the key string
+	 * @throws AutoException **/
+	public String getKey(Automobile automobileObject) throws AutoException {
+		if (automobileObject == null)
+			// Automobile could not be found in database
+			throw new exception.AutoException(502);
 		return automobileObject.getMake() + "-" + automobileObject.getModel() + "-" + automobileObject.getYear();
 	}
 
 	/** Inserts an automobile into the hash table. Overwrites existing Automobiles
 	 * with the same Make, Model, and Year.
 	 * @return the key in the hash table **/
-	public String insertOverwrite(Automobile automobileObject) {
+	public String insertOverwrite(Automobile automobileObject) throws AutoException {
 		/* key = Make-Model-Year */
-		String automobileKey = getKey(automobileObject);
-		automobileTable.put(automobileKey, automobileObject);
+		String automobileKey = null;
+		try {
+			automobileKey = getKey(automobileObject);
+			automobileTable.put(automobileKey, automobileObject);
+		} catch (NullPointerException e) {
+			// Automobile could not be added to database
+			throw new exception.AutoException(501);
+		} catch (Exception e) {
+			// Automobile could not be added to database
+			throw new exception.AutoException(501);
+		}
 		return automobileKey;
 	}
 

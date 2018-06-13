@@ -1,19 +1,28 @@
 package client;
 
 import java.net.*;
+
+import adapter.BuildAuto;
+import exception.AutoException;
+
 import java.io.*;
 
 public class DefaultSocketClient extends Thread implements SocketClientInterface, SocketClientConstants {
-
+	private BufferedReader stdIn;
+	private Socket socketClient;
+	InputStream socketClientInputStream;
+	OutputStream socketClientOutputStream;
 	private BufferedReader reader;
 	private BufferedWriter writer;
-	private Socket sock;
 	private String strHost;
 	private int iPort;
+	private CarModelOptionsIO carOptionsMenu;
 
-	public DefaultSocketClient(String strHost, int iPort) {
+	public DefaultSocketClient(String strHost, int iPort, BufferedReader stdIn_) {
+		stdIn = stdIn_;
 		setPort(iPort);
 		setHost(strHost);
+		carOptionsMenu = new CarModelOptionsIO(stdIn_);
 	}// constructor
 
 	public void run() {
@@ -24,17 +33,23 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 	}// run
 
 	public boolean openConnection() {
-
 		try {
-			sock = new Socket(strHost, iPort);
+			socketClient = new Socket(strHost, iPort);
 		} catch (IOException socketError) {
 			if (DEBUG)
 				System.err.println("Unable to connect to " + strHost);
 			return false;
 		}
 		try {
-			reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-			writer = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
+			socketClientInputStream = socketClient.getInputStream();
+			socketClientOutputStream = socketClient.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(socketClientInputStream));
+			writer = new BufferedWriter(new OutputStreamWriter(socketClientOutputStream));
+			carOptionsMenu.openConnection(socketClientInputStream, socketClientOutputStream);
+		} catch (AutoException e) {
+			if (DEBUG)
+				System.err.println("Unable to obtain stream to/from " + strHost);
+			return false;
 		} catch (Exception e) {
 			if (DEBUG)
 				System.err.println("Unable to obtain stream to/from " + strHost);
@@ -44,21 +59,33 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 	}
 
 	public void handleSession() {
+		// BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		String strInput = "";
+		String fromServer = "";
 		if (DEBUG)
 			System.out.println("Handling session with " + strHost + ":" + iPort);
 		try {
-			while ((strInput = reader.readLine()) != null)
-				handleInput(strInput);
+			// block on client command
+			carOptionsMenu.displayMenu();
+			while ((strInput = stdIn.readLine()) != null) {
+				if (carOptionsMenu.getMenuOption(strInput)) {
+					// block on server response
+					fromServer = reader.readLine();
+					handleInput(fromServer);
+				}
+				carOptionsMenu.displayMenu();
+			}
 		} catch (IOException e) {
 			if (DEBUG)
-				System.out.println("Handling session with " + strHost + ":" + iPort);
+				System.out.println("client unexpectedly closed");
 		}
 	}
 
 	public void sendOutput(String strOutput) {
 		try {
 			writer.write(strOutput, 0, strOutput.length());
+			writer.newLine();
+			writer.flush();
 		} catch (IOException e) {
 			if (DEBUG)
 				System.out.println("Error writing to " + strHost);
@@ -73,7 +100,7 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 		try {
 			writer = null;
 			reader = null;
-			sock.close();
+			socketClient.close();
 		} catch (IOException e) {
 			if (DEBUG)
 				System.err.println("Error closing socket to " + strHost);
@@ -96,7 +123,8 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 		} catch (UnknownHostException e) {
 			System.err.println("Unable to find local host");
 		}
-		DefaultSocketClient d = new DefaultSocketClient(strLocalHost, iDAYTIME_PORT);
+		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+		DefaultSocketClient d = new DefaultSocketClient(strLocalHost, iDAYTIME_PORT, stdIn);
 		d.start();
 	}
 

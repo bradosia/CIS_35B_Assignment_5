@@ -77,12 +77,15 @@ public class Automobile implements java.io.Serializable {
 		OptionSet optionSetObject = null;
 		try {
 			optionSetObject = optionSetList.get(OptionSetIndex);
+		} catch (NullPointerException e) {
+			System.out.println("Intentional NullPointerExceptionn from getOptionSet");
+			e.printStackTrace();
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Intentional ArrayIndexOutOfBoundsException from getOptionSet");
-			//e.printStackTrace();
+			e.printStackTrace();
 		} catch (Exception e) {
 			System.out.println("Intentional Exception from getOptionSet");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		return optionSetObject;
 	}
