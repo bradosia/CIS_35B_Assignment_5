@@ -11,6 +11,7 @@ UML.pdf - design
 readme.txt - student information
 FordZTW.txt - Ford Wagon ZTW text file
 BMW320i.txt - BMW 320i text file
+BMW320i.properties - BMW 320i properties file
 
 Email to:
 cislabs05@gmail.com

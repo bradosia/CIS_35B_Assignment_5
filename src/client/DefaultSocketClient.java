@@ -83,6 +83,8 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 
 	public void sendOutput(String strOutput) {
 		try {
+			// escape new lines so we can send this in one go
+			strOutput = strOutput.replace("\n","\\n");
 			writer.write(strOutput, 0, strOutput.length());
 			writer.newLine();
 			writer.flush();
@@ -93,6 +95,8 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 	}
 
 	public void handleInput(String strInput) {
+		// unescape new lines
+		strInput = strInput.replace("\\n","\n");
 		System.out.println(strInput);
 	}
 

@@ -3,10 +3,8 @@ package adapter;
 import model.*;
 import scale.EditOptions;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 
 import exception.*;
 
@@ -168,7 +166,9 @@ public abstract class ProxyAutomobile {
 		editObtionsObject.start();
 	}
 
-	/* server.AutoServer Implementation */
+	/* Assignment 5
+	 * 6/12/2018
+	 * server.AutoServer Implementation */
 	public String buildAutomobileFromProperties(Properties automobileProperties) throws exception.AutoException {
 		String automobileKey = null;
 		model.Automobile automobileObject = new model.Automobile();
@@ -186,8 +186,13 @@ public abstract class ProxyAutomobile {
 	}
 
 	public String getAutomobileList() {
-		String automobileKey = null;
-		automobileKey = "test";
-		return automobileKey;
+		StringBuffer listString = new StringBuffer();
+		for (Map.Entry<String, Automobile> entry : automobileTable.getMap().entrySet()) {
+			// assuming nothing is null (for performance)
+			listString.append("Car ID: ").append(entry.getKey()).append("\tName=").append(entry.getValue().getYear());
+			listString.append(" ").append(entry.getValue().getMake()).append(" ").append(entry.getValue().getModel());
+			listString.append("\tRetail Price=$").append(entry.getValue().getPrice()).append("\n");
+		}
+		return listString.toString();
 	}
 }

@@ -34,7 +34,7 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 			sock = new ServerSocket(iPort);
 		} catch (IOException socketError) {
 			if (DEBUG)
-				System.err.println("Unable to connect to " + strHost);
+				System.err.println("Unable to connect to " + strHost + " on port " + iPort);
 			return false;
 		}
 

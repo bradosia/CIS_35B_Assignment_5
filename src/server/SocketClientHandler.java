@@ -30,17 +30,6 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 	}// run
 
 	public boolean openConnection() {
-		/* we only need to create a new socket
-		 * if the socket constructor was not used */
-		/* if (sock == null) {
-		 * try {
-		 * sock = new Socket(strHost, iPort);
-		 * } catch (IOException socketError) {
-		 * if (DEBUG)
-		 * System.err.println("Unable to connect to " + strHost);
-		 * return false;
-		 * }
-		 * } */
 		try {
 			reader = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
 			writer = new BufferedWriter(new OutputStreamWriter(socketClient.getOutputStream()));
@@ -67,6 +56,8 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 
 	public void sendOutput(String strOutput) {
 		try {
+			// escape new lines so we can send this in one go
+			strOutput = strOutput.replace("\n", "\\n");
 			writer.write(strOutput, 0, strOutput.length());
 			writer.newLine();
 			writer.flush();
@@ -77,6 +68,8 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 	}
 
 	public void handleInput(String strInput) {
+		// unescape new lines
+		strInput = strInput.replace("\\n", "\n");
 		String automobileKey = null;
 		if (DEBUG)
 			System.out.println(socketClient.getRemoteSocketAddress() + ": " + strInput);
@@ -115,8 +108,8 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 			}
 			break;
 		case "get automobile list":
-			automobileKey = buildAutoInterface.getAutomobileList();
-			sendOutput("Successfuly added the automobile with key: " + automobileKey);
+			
+			sendOutput(buildAutoInterface.getAutomobileList() + "\n");
 			break;
 		case "exit":
 			// closes the client
@@ -128,7 +121,7 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 			break;
 		default:
 			// do not echo
-			//sendOutput("Received: " + strInput);
+			// sendOutput("Received: " + strInput);
 		}
 	}
 

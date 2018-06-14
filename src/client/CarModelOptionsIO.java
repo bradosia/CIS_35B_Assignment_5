@@ -25,7 +25,8 @@ public class CarModelOptionsIO {
 		System.out.println("Options:");
 		System.out.println("1: Upload Automobile Properties File");
 		System.out.println("2: Upload Automobile Text File");
-		System.out.println("3: Automobile list for configuration");
+		System.out.println("3: Automobile list for configuration\n");
+		System.out.println("4: Configure Automobile (get key list above first)\n");
 	}
 
 	public void displayMenu1() {
@@ -51,20 +52,38 @@ public class CarModelOptionsIO {
 			fileIOUtil.serializeToStream(socketClientOutputStream, fileIOUtil.fileToAutomobile(inputString));
 		} catch (AutoException e) {
 			System.out.println(e.getMessage());
-			/* we send this command because the server was expecting an object stream
-			 * This is obviously not an object stream and will allow the server to throw an exception
-			 */
-			sendOutput("cancel properties"); 
+			/* we send this command because the server was expecting an object
+			 * stream
+			 * This is obviously not an object stream and will allow the server
+			 * to throw an exception */
+			sendOutput("cancel properties");
 		} catch (IOException e) {
 			System.out.println("Error: Could not serialize");
-			/* we send this command because the server was expecting an object stream
-			 * This is obviously not an object stream and will allow the server to throw an exception
-			 */
+			/* we send this command because the server was expecting an object
+			 * stream
+			 * This is obviously not an object stream and will allow the server
+			 * to throw an exception */
 			sendOutput("cancel properties");
 		}
 	}
 
+	/** Allows the user to request an automobile list, enter the key, and
+	 * configure the car
+	 * This method is long, but breaking it up and doing more error checking is
+	 * more of a summer project. */
 	public void displayMenu3() {
+		System.out.println("Enter the key for the car you want to configure:");
+		sendOutput("get automobile list");
+		String fromServer = null;
+		try {
+			fromServer = reader.readLine();
+			fromServer = fromServer.replace("\\n", "\n");
+			System.out.println(fromServer);
+		} catch (IOException e1) {
+			System.out.println("Error: Could not read socket");
+			sendOutput("cancel properties");
+		}
+		// now user should enter the key
 		String inputString = "null";
 		try {
 			inputString = stdIn.readLine();
@@ -73,8 +92,17 @@ public class CarModelOptionsIO {
 		}
 		sendOutput("begin customization");
 		sendOutput(inputString);
+		model.Automobile automobileObject = null;
+		try {
+			automobileObject = fileIOUtil.deserializeToStream(socketClientInputStream);
+		} catch (AutoException e) {
+			System.out.println("Error: Could not read socket");
+			sendOutput("cancel properties");
+		}
+		SelectCarOption selectCarOptions = new SelectCarOption(stdIn, automobileObject);
+		sendOutput("pick up car");
 	}
-	
+
 	public void displayMenu4() {
 		System.out.println("Select an option #1");
 		String inputString = "null";
@@ -96,7 +124,7 @@ public class CarModelOptionsIO {
 			displayMenu2();
 			break;
 		case "3":
-			sendOutput("get automobile list");
+			displayMenu3();
 			break;
 		default:
 			returnValue = false;
@@ -114,6 +142,8 @@ public class CarModelOptionsIO {
 
 	public void sendOutput(String strOutput) {
 		try {
+			// escape new lines so we can send this in one go
+			strOutput = strOutput.replace("\n", "\\n");
 			writer.write(strOutput, 0, strOutput.length());
 			writer.newLine();
 			writer.flush();

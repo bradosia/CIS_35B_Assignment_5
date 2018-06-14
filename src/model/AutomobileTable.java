@@ -33,8 +33,13 @@ public class AutomobileTable {
 			throw new exception.AutoException(502);
 		return automobileObject.getMake() + "-" + automobileObject.getModel() + "-" + automobileObject.getYear();
 	}
+	
+	public Map<String, Automobile> getMap(){
+		return automobileTable;
+	}
 
-	/** Inserts an automobile into the hash table. Overwrites existing Automobiles
+	/** Inserts an automobile into the hash table. Overwrites existing
+	 * Automobiles
 	 * with the same Make, Model, and Year.
 	 * @return the key in the hash table **/
 	public String insertOverwrite(Automobile automobileObject) throws AutoException {
@@ -53,13 +58,15 @@ public class AutomobileTable {
 		return automobileKey;
 	}
 
-	/** Inserts an automobile into the hash table. If an automobile with the same
+	/** Inserts an automobile into the hash table. If an automobile with the
+	 * same
 	 * key exists then the exception fixString() method is used to correct it.
 	 * @return the key in the hash table **/
-	public String insertWrapper(Automobile automobileObject) {
+	public String insertWrapper(Automobile automobileObject) throws AutoException {
 		/* key = Make-Model-Year */
 		int tryNumber = 1;
-		String automobileKey = getKey(automobileObject);
+		String automobileKey = null;
+		automobileKey = getKey(automobileObject);
 		// self-healing
 		while (tryNumber > 0) {
 			try {
