@@ -1,10 +1,3 @@
-//============================================================================
-// Name        : Assignment 5
-// Author      : Branden Lee
-// Date        : 6/13/2018
-// Description : StreamIO class for the KBB website application
-//============================================================================
-
 package util;
 
 import java.io.*;

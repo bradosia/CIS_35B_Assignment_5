@@ -1,10 +1,3 @@
-//============================================================================
-// Name        : Assignment 2
-// Author      : Branden Lee
-// Date        : 4/24/2018
-// Description : FileIO class for the KBB website application
-//============================================================================
-
 package util;
 
 import java.io.*;
