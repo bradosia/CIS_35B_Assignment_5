@@ -99,3 +99,9 @@
 [06/13/18 17:40:29] ERROR #300: IO problem serializing automobile
 [06/13/18 18:36:42] ERROR #300: IO problem serializing automobile
 [06/13/18 18:37:58] ERROR #300: IO problem serializing automobile
+[06/13/18 20:52:14] ERROR #200: Could not find the automobile text file
+[06/13/18 20:52:14] ERROR #300: IO problem serializing automobile
+[06/13/18 20:52:15] ERROR #200: Could not find the automobile text file
+[06/13/18 20:52:15] ERROR #300: IO problem serializing automobile
+[06/13/18 20:52:17] ERROR #900: Could not find the automobile properties file
+[06/13/18 20:52:17] ERROR #300: IO problem serializing automobile

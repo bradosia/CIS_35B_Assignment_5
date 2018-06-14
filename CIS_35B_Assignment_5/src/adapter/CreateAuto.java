@@ -1,7 +1,10 @@
+/**
+ * external API to give to our clients like Toyota, Ford, and Honda.
+ */
 package adapter;
 
 public interface CreateAuto {
-	public String buildAuto(String filename);
+	public String buildAuto(String fileName, String fileType);
 
 	public boolean printAuto(String automobileKey);
 
