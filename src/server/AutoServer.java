@@ -7,6 +7,7 @@
 package server;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 import exception.AutoException;
@@ -17,6 +18,8 @@ public interface AutoServer {
 	public Properties propertiesFromStream(InputStream socketStreamIn) throws exception.AutoException;
 
 	public String automobileFromStream(InputStream socketStreamIn) throws exception.AutoException;
-	
+
+	public void automobileToStream(OutputStream socketStreamOut, String automobileKey) throws exception.AutoException;
+
 	public String getAutomobileList();
 }

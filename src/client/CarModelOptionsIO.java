@@ -26,7 +26,6 @@ public class CarModelOptionsIO {
 		System.out.println("1: Upload Automobile Properties File");
 		System.out.println("2: Upload Automobile Text File");
 		System.out.println("3: Automobile list for configuration\n");
-		System.out.println("4: Configure Automobile (get key list above first)\n");
 	}
 
 	public void displayMenu1() {
@@ -94,12 +93,13 @@ public class CarModelOptionsIO {
 		sendOutput(inputString);
 		model.Automobile automobileObject = null;
 		try {
-			automobileObject = fileIOUtil.deserializeToStream(socketClientInputStream);
+			automobileObject = fileIOUtil.deserializeFromStream(socketClientInputStream);
 		} catch (AutoException e) {
 			System.out.println("Error: Could not read socket");
 			sendOutput("cancel properties");
 		}
 		SelectCarOption selectCarOptions = new SelectCarOption(stdIn, automobileObject);
+		selectCarOptions.beginSelection();
 		sendOutput("pick up car");
 	}
 

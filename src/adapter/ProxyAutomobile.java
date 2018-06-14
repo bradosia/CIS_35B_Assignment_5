@@ -182,7 +182,11 @@ public abstract class ProxyAutomobile {
 	}
 
 	public String automobileFromStream(InputStream socketStreamIn) throws exception.AutoException {
-		return automobileTable.insertOverwrite(fileIOUtil.deserializeToStream(socketStreamIn));
+		return automobileTable.insertOverwrite(fileIOUtil.deserializeFromStream(socketStreamIn));
+	}
+
+	public void automobileToStream(OutputStream socketStreamOut, String automobileKey) throws exception.AutoException {
+		fileIOUtil.serializeToStream(socketStreamOut, automobileTable.getByKey(automobileKey));
 	}
 
 	public String getAutomobileList() {

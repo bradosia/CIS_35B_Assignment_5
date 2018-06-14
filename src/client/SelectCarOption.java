@@ -10,4 +10,8 @@ public class SelectCarOption {
 		stdIn = stdIn_;
 		automobileObject = automobileObject_;
 	}
+
+	public void beginSelection() {
+		automobileObject.print();
+	}
 }

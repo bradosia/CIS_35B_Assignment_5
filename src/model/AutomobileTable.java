@@ -33,8 +33,8 @@ public class AutomobileTable {
 			throw new exception.AutoException(502);
 		return automobileObject.getMake() + "-" + automobileObject.getModel() + "-" + automobileObject.getYear();
 	}
-	
-	public Map<String, Automobile> getMap(){
+
+	public Map<String, Automobile> getMap() {
 		return automobileTable;
 	}
 

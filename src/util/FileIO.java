@@ -14,15 +14,17 @@ import model.Automobile;
 import exception.AutoException;
 
 public class FileIO {
-	
+
 	public Automobile fileToAutomobile(String fileName) throws AutoException {
 		Automobile automobileObject = new model.Automobile();
 		addToAutomobile(fileName, automobileObject);
 		return automobileObject;
 	}
-	
-	/** File pattern: newline (\n) separates different optionSet colon ":" separates
-	 * optionSetName and optionSetOptions optionSetOptions may span multiple lines
+
+	/** File pattern: newline (\n) separates different optionSet colon ":"
+	 * separates
+	 * optionSetName and optionSetOptions optionSetOptions may span multiple
+	 * lines
 	 * as long as no new optionSetName is found comma "," separates different
 	 * optionSetOptions slash "/" separates different option values
 	 * @param fileName The file name
@@ -50,8 +52,10 @@ public class FileIO {
 						optionSetObjectIndex = -1;
 					}
 				} else {
-					/* optionSet name not found, so the whole line must be options.
-					 * We approach line parsing this way to allows options to be split on multiple
+					/* optionSet name not found, so the whole line must be
+					 * options.
+					 * We approach line parsing this way to allows options to be
+					 * split on multiple
 					 * lines for file readability. */
 					optionSetOptions = lineNext;
 				}
@@ -162,12 +166,15 @@ public class FileIO {
 		}
 		return automobileObject;
 	}
-	
+
 	/** serializes and Automobile object object as a file
 	 * @param socketStreamOut The output stream
 	 * @param automobileProperties The Automobile properties
 	 * @throws AutoException */
 	public void serializeToStream(OutputStream socketStreamOut, Automobile automobileObject) throws AutoException {
+		if (automobileObject == null) {
+			throw new exception.AutoException(300);
+		}
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(socketStreamOut);
 			out.writeObject(automobileObject);
@@ -184,7 +191,7 @@ public class FileIO {
 	 * @param socketStreamIn The input stream
 	 * @return The Automobile properties
 	 * @throws AutoException */
-	public Automobile deserializeToStream(InputStream socketStreamIn) throws AutoException {
+	public Automobile deserializeFromStream(InputStream socketStreamIn) throws AutoException {
 		Automobile automobileObject = null;
 		try {
 			ObjectInputStream in = new ObjectInputStream(socketStreamIn);

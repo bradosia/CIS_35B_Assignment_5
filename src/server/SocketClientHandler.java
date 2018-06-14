@@ -108,8 +108,34 @@ public class SocketClientHandler extends Thread implements SocketClientInterface
 			}
 			break;
 		case "get automobile list":
-			
 			sendOutput(buildAutoInterface.getAutomobileList() + "\n");
+			break;
+		case "begin customization":
+			try {
+				strInput = reader.readLine();
+				// remove new lines and white space
+				strInput = strInput.replace("\\n", "\n").replace("\n", "").replace(" ", "");
+			} catch (IOException e) {
+				sendOutput("Failed to get request.");
+				break;
+			}
+			if (DEBUG)
+				System.out.println(socketClient.getRemoteSocketAddress() + ": " + strInput);
+			try {
+				buildAutoInterface.automobileToStream(socketClient.getOutputStream(), strInput);
+			} catch (AutoException e) {
+				if (DEBUG)
+					System.out.println(socketClient.getRemoteSocketAddress() + ": " + e.getMessage());
+				sendOutput("Failed to get automobile.");
+
+			} catch (IOException e) {
+				if (DEBUG)
+					System.out.println(socketClient.getRemoteSocketAddress() + ": error sending automobile");
+				sendOutput("Failed to get automobile.");
+			}
+			break;
+		case "pick up car":
+			sendOutput("Your order has been sent.");
 			break;
 		case "exit":
 			// closes the client
